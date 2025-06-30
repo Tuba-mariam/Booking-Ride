@@ -1,6 +1,6 @@
 enum UserRoleEnum {
-  SELLER = 'Seller',
-  BUYER = 'Buyer',
+ USER = 'User',
+ DRIVER = 'Driver',
 }
 
 export default UserRoleEnum;

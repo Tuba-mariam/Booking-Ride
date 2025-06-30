@@ -1,5 +1,5 @@
 interface IConfig {
-   port: number
+  port: number
   mongoDbUrl: string
   jwtSecret: string   
 }

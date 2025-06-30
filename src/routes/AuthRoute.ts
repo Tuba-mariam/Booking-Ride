@@ -5,7 +5,7 @@ import { loginValidator, signupValidator } from '../validators/auth';
 
 const router = Router();
 
-router.post('/signup', signupValidator, requestValidationMiddleware, AuthController.);
+router.post('/signup', signupValidator, requestValidationMiddleware, AuthController.signup);
 router.post('/login', loginValidator, requestValidationMiddleware, AuthController.login);
 
 export default router;

@@ -1,15 +1,15 @@
 import { Request, Response } from 'express';
 import { UserRepo } from '../repos';
-import { IResponse } from '../interfaces';
-import { SignupDto } from '../dtos/auth';
 import jwt from 'jsonwebtoken';
 import { matchPassword } from '../utils';
 import config from '../config/config';
 import { IUser } from '../models/UserModel';
+import GenericNameSpace from '../interfaces/Generic.interface';
+
 
 class AuthController {
   public static async signup(req: Request, res: Response) {
-    const body: SignupDto = req.body;
+    const body = req.body;
 
     try {
       const newUser = await UserRepo.createUser(body);
@@ -19,10 +19,10 @@ class AuthController {
         data: newUser,
         message: '',
       });
-    } catch (error: any) {
-      const errorResponse: IResponse = {
+    } catch (error) {
+      const errorResponse:GenericNameSpace.IApiResponse = {
         success: false,
-        message: error?.message || 'Internal server error',
+        message: 'Internal server error',
       };
       res.status(500).json(errorResponse);
     }
@@ -34,7 +34,7 @@ class AuthController {
     try {
       const user = await UserRepo.getUserByEmail(email);
       if (!user) {
-        const errorResponse: IResponse = {
+        const errorResponse: GenericNameSpace.IApiResponse = {
           success: false,
           message: 'email invalid',
         };
@@ -44,7 +44,7 @@ class AuthController {
 
       const isPasswordMatched = await matchPassword(password, user.password);
       if (!isPasswordMatched) {
-        const errorResponse: IResponse = {
+        const errorResponse:GenericNameSpace.IApiResponse = {
           success: false,
           message: 'password invalid',
         };
@@ -58,7 +58,7 @@ class AuthController {
         { expiresIn: '24h' }
       );
       const { password: pass, ...resUser } = user;
-      const response: IResponse<{
+      const response: GenericNameSpace.IApiResponse<{
         token: string;
         user: Omit<IUser, 'password'>;
       }> = {
@@ -70,10 +70,10 @@ class AuthController {
         },
       };
       res.json(response);
-    } catch (error: any) {
-      const errorResponse: IResponse = {
+    } catch (error) {
+      const errorResponse: GenericNameSpace.IApiResponse= {
         success: false,
-        message: error?.message || 'Internal server error',
+        message: 'Internal server error',
       };
       res.status(500).json(errorResponse);
     }

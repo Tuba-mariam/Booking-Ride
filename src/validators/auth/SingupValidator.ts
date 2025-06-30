@@ -26,8 +26,12 @@ const signupValidator = [
     .matches(/^(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>])/)
     .withMessage('Password must contain at least one uppercase letter and one special character'),
 
+  body('location')
+   .notEmpty()
+   .withMessage('Location is required'),
+   
   body('role')
-    .isIn([UserroleEnum.BUYER, UserroleEnum.SELLER])
+    .isIn([UserroleEnum.DRIVER, UserroleEnum.USER])
     .withMessage('Valid role is required'),
 ];
 

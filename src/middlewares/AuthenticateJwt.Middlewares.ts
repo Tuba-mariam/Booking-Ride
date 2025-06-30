@@ -1,10 +1,10 @@
 import { NextFunction, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import config from '../config/config';
-import { IAuthRequest } from '../interfaces';
+import AuthNameSpace  from '../interfaces/Auth.interface';
 import { IUser } from '../models/UserModel';
 
-const authenticateJwt = (req: IAuthRequest, res: Response, next: NextFunction): void => {
+const authenticateJwt = (req:AuthNameSpace.IRequest, res: Response, next: NextFunction): void => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith('Bearer ')) {

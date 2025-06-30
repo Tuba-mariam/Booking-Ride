@@ -1,7 +1,7 @@
 import { JwtPayload } from 'jsonwebtoken';
-import  UserNameSpace  from './User.interface';
+import UserNameSpace from './User.interface';
 
- declare namespace GenericNameSpace {
+declare namespace GenericNameSpace {
   interface IConfig {
     port: number;
     mongoDbUrl: string;
@@ -19,4 +19,4 @@ import  UserNameSpace  from './User.interface';
   }
 }
 
-export default GenericNameSpace
+export default GenericNameSpace;
