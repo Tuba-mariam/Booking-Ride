@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 import { matchPassword } from '../utils';
 import config from '../config/config';
 import GenericNameSpace from '../interfaces/Generic.interface';
-import { DriverNameSpace } from '../interfaces';
+import {UserNameSpace}  from '../interfaces';
 
 class AuthController {
   public static async signup(req: Request, res: Response) {
@@ -57,7 +57,7 @@ class AuthController {
       const { password: pass, ...resUser } = user; // eslint-disable-line @typescript-eslint/no-unused-vars
       const response: GenericNameSpace.IApiResponse<{
         token: string;
-        user: Omit<DriverNameSpace.IModel, 'password'>;
+        user: Omit<UserNameSpace.IModel, 'password'>;
       }> = {
         success: true,
         message: 'Login successful!',

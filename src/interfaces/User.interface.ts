@@ -1,6 +1,6 @@
 import { UserroleEnum } from '../enums';
 
-declare namespace DriverNameSpace {
+declare namespace UserNameSpace {
   interface IModel {
     _id: string;
     name: string;
@@ -26,4 +26,4 @@ declare namespace DriverNameSpace {
   }
 }
 
-export default DriverNameSpace;
+export default UserNameSpace;

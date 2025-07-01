@@ -3,14 +3,14 @@ import { RiderRepo } from '../repos';
 import { GenericNameSpace } from '../interfaces';
 
 class RiderController {
-  public static async rider(req: Request, res: Response) {
+  public static async bookRide(req: Request, res: Response) {
     try {
       const body = req.body;
       const newRide = await RiderRepo.createRide(body);
       res.json({
         success: true,
         Data: newRide,
-        message: '',
+        message: ' Ride Booked successfully',
       });
     } catch (error) {
       const errorResponse: GenericNameSpace.IApiResponse = {
