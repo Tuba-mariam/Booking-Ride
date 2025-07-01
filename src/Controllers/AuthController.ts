@@ -1,18 +1,17 @@
 import { Request, Response } from 'express';
-import { UserRepo } from '../repos';
+import { DriverRepo } from '../repos';
 import jwt from 'jsonwebtoken';
 import { matchPassword } from '../utils';
 import config from '../config/config';
-import { IUser } from '../models/UserModel';
 import GenericNameSpace from '../interfaces/Generic.interface';
-
+import { DriverNameSpace } from '../interfaces';
 
 class AuthController {
   public static async signup(req: Request, res: Response) {
     const body = req.body;
 
     try {
-      const newUser = await UserRepo.createUser(body);
+      const newUser = await DriverRepo.createUser(body);
 
       res.json({
         success: true,
@@ -20,7 +19,7 @@ class AuthController {
         message: '',
       });
     } catch (error) {
-      const errorResponse:GenericNameSpace.IApiResponse = {
+      const errorResponse: GenericNameSpace.IApiResponse = {
         success: false,
         message: 'Internal server error',
       };
@@ -32,7 +31,7 @@ class AuthController {
     const { email, password } = req.body;
 
     try {
-      const user = await UserRepo.getUserByEmail(email);
+      const user = await DriverRepo.getUserByEmail(email);
       if (!user) {
         const errorResponse: GenericNameSpace.IApiResponse = {
           success: false,
@@ -44,7 +43,7 @@ class AuthController {
 
       const isPasswordMatched = await matchPassword(password, user.password);
       if (!isPasswordMatched) {
-        const errorResponse:GenericNameSpace.IApiResponse = {
+        const errorResponse: GenericNameSpace.IApiResponse = {
           success: false,
           message: 'password invalid',
         };
@@ -52,15 +51,13 @@ class AuthController {
         return;
       }
 
-      const token = jwt.sign(
-        { _id: user._id, email: user.email, role: user.role },
-        config.jwtSecret,
-        { expiresIn: '24h' }
-      );
-      const { password: pass, ...resUser } = user;
+      const token = jwt.sign({ _id: user._id, email: user.email, role: user.role }, config.jwtSecret, {
+        expiresIn: '24h',
+      });
+      const { password: pass, ...resUser } = user; // eslint-disable-line @typescript-eslint/no-unused-vars
       const response: GenericNameSpace.IApiResponse<{
         token: string;
-        user: Omit<IUser, 'password'>;
+        user: Omit<DriverNameSpace.IModel, 'password'>;
       }> = {
         success: true,
         message: 'Login successful!',
@@ -71,7 +68,7 @@ class AuthController {
       };
       res.json(response);
     } catch (error) {
-      const errorResponse: GenericNameSpace.IApiResponse= {
+      const errorResponse: GenericNameSpace.IApiResponse = {
         success: false,
         message: 'Internal server error',
       };

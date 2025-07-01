@@ -1,5 +1,5 @@
 import { JwtPayload } from 'jsonwebtoken';
-import UserNameSpace from './User.interface';
+import UserNameSpace from './Driver.interface';
 
 declare namespace GenericNameSpace {
   interface IConfig {

@@ -1,7 +1,7 @@
 interface IConfig {
-  port: number
-  mongoDbUrl: string
-  jwtSecret: string   
+  port: number;
+  mongoDbUrl: string;
+  jwtSecret: string;
 }
 
-export default IConfig
+export default IConfig;

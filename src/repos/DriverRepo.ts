@@ -1,10 +1,10 @@
-import { SignupDto } from '../dtos/auth';
+// import { SignupDto } from '../dtos/auth';
+import { DriverNameSpace } from '../interfaces';
 import { UserModel } from '../models';
-import { IUser } from '../models/UserModel';
 import { createPasswordHash } from '../utils';
 
-class UserRepo {
-  public static async createUser(body: SignupDto): Promise<IUser> {
+class DriverRepo {
+  public static async createUser(body: DriverNameSpace.ICreate): Promise<DriverNameSpace.IModel> {
     const isExist = await this.getUserByEmail(body.email);
     if (isExist) {
       const errorMessage = 'Email is already registered';
@@ -16,13 +16,13 @@ class UserRepo {
       const newUser = new UserModel({ ...body, password: passwordHash });
       await newUser.save();
       return newUser;
-    } catch (error: any) {
-      const errorMessage = `Internal server error: ${error?.message || 'Unknown error'}`;
+    } catch (error) {
+      const errorMessage = `Internal server error: ${(error as unknown as { message: string }).message || 'Unknown error'}`;
       throw new Error(errorMessage);
     }
   }
 
-  public static async getUserByEmail(email: string): Promise<IUser> {
+  public static async getUserByEmail(email: string): Promise<DriverNameSpace.IModel> {
     try {
       const user = await UserModel.findOne({ email }).lean().exec();
 
@@ -39,4 +39,4 @@ class UserRepo {
   }
 }
 
-export default UserRepo;
+export default DriverRepo;

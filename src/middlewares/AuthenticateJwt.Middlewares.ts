@@ -1,10 +1,10 @@
 import { NextFunction, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import config from '../config/config';
-import AuthNameSpace  from '../interfaces/Auth.interface';
-import { IUser } from '../models/UserModel';
+import AuthNameSpace from '../interfaces/Auth.interface';
+import { DriverNameSpace } from '../interfaces';
 
-const authenticateJwt = (req:AuthNameSpace.IRequest, res: Response, next: NextFunction): void => {
+const authenticateJwt = (req: AuthNameSpace.IRequest, res: Response, next: NextFunction): void => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -15,7 +15,7 @@ const authenticateJwt = (req:AuthNameSpace.IRequest, res: Response, next: NextFu
   const token = authHeader.split(' ')[1];
 
   try {
-    const decoded = jwt.verify(token, config.jwtSecret) as IUser;
+    const decoded = jwt.verify(token, config.jwtSecret) as DriverNameSpace.IModel;
     req.user = decoded;
     next();
   } catch (error) {

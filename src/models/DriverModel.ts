@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import { UserroleEnum } from '../enums';
 import { DriverNameSpace } from '../interfaces';
 
-export const userSchema = new mongoose.Schema<DriverNameSpace.IModel>({
+export const driverSchema = new mongoose.Schema<DriverNameSpace.IModel>({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
@@ -14,6 +14,6 @@ export const userSchema = new mongoose.Schema<DriverNameSpace.IModel>({
   createAt: { type: Date, default: Date.now },
 });
 
-const UserModel = mongoose.model('User', userSchema);
+const DriverModel = mongoose.model('Driver', driverSchema);
 
-export default UserModel;
+export default DriverModel;

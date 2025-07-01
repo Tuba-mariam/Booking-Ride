@@ -1,2 +1,5 @@
 import UserModel from './UserModel';
-export { UserModel };
+import RiderModel from './RiderModel';
+import DriverModel from './RiderModel';
+
+export { UserModel, RiderModel, DriverModel };

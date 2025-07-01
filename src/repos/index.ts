@@ -1,4 +1,4 @@
-import UserRepo from './UserRepo';
+import DriverRepo from './DriverRepo';
+import RiderRepo from './RiderRepo';
 
-
-export { UserRepo };
+export { DriverRepo, RiderRepo };
