@@ -1,2 +1,5 @@
 import AuthController from './AuthController';
-export { AuthController };
+import RiderController from './RiderController';
+import DriverController from './DriverController';
+
+export { AuthController, RiderController, DriverController };

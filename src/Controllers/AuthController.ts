@@ -1,17 +1,17 @@
 import { Request, Response } from 'express';
-import { DriverRepo } from '../repos';
 import jwt from 'jsonwebtoken';
 import { matchPassword } from '../utils';
 import config from '../config/config';
 import GenericNameSpace from '../interfaces/Generic.interface';
-import {UserNameSpace}  from '../interfaces';
+import { UserNameSpace } from '../interfaces';
+import UserRepo from '../repos/UserRepo';
 
 class AuthController {
   public static async signup(req: Request, res: Response) {
     const body = req.body;
 
     try {
-      const newUser = await DriverRepo.createUser(body);
+      const newUser = await UserRepo.createUser(body);
 
       res.json({
         success: true,
@@ -31,7 +31,7 @@ class AuthController {
     const { email, password } = req.body;
 
     try {
-      const user = await DriverRepo.getUserByEmail(email);
+      const user = await UserRepo.getUserByEmail(email);
       if (!user) {
         const errorResponse: GenericNameSpace.IApiResponse = {
           success: false,

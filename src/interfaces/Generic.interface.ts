@@ -17,6 +17,11 @@ declare namespace GenericNameSpace {
     message?: string;
     data?: T;
   }
+
+  interface ILocation {
+    latitude: number;
+    longitude: number;
+  }
 }
 
 export default GenericNameSpace;

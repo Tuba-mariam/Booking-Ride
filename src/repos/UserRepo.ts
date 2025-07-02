@@ -13,9 +13,7 @@ class UserRepo {
 
     try {
       const passwordHash = await createPasswordHash(body.password);
-      const newUser = new UserModel({ ...body, password: passwordHash });
-      await newUser.save();
-      return;
+      return await UserModel.create({ ...body, password: passwordHash });
     } catch (error) {
       const errorMessage = `Internal server error`;
       throw new Error(errorMessage);

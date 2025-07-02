@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
 import { UserroleEnum } from '../enums';
-import { DriverNameSpace } from '../interfaces';
+import { UserNameSpace } from '../interfaces';
 
-export const userSchema = new mongoose.Schema<DriverNameSpace.IModel>({
+export const userSchema = new mongoose.Schema<UserNameSpace.IModel>({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },

@@ -1,16 +1,17 @@
-import mongoose from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 import { UserroleEnum } from '../enums';
 import { DriverNameSpace } from '../interfaces';
 
-export const driverSchema = new mongoose.Schema<DriverNameSpace.IModel>({
+export const vehicleSchema = new mongoose.Schema<DriverNameSpace.IvehicleInfo>({
   name: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
-  location: {
-    latitude: { type: Number, required: true, min: -90, max: 90 },
-    longitude: { type: Number, required: true, min: -180, max: 180 },
-  },
-  role: { type: String, enum: UserroleEnum, required: true },
+  model: { type: Number, required: true },
+  number: { type: Number, required: true },
+  color: { type: String, required: true },
+});
+export const driverSchema = new mongoose.Schema<DriverNameSpace.IModel>({
+  user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+  drivingLicenceNo: { type: Number, required: true },
+  vehicleInfo: vehicleSchema,
   createAt: { type: Date, default: Date.now },
 });
 
