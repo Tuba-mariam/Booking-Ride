@@ -18,10 +18,10 @@ declare namespace DriverNameSpace {
   }
 
   interface ICreate {
-    userId: string;
     drivingLicenceNo: Number;
     vehicleInfo: IvehicleInfo;
   }
+
 }
 
 export default DriverNameSpace;

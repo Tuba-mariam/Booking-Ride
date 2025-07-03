@@ -1,5 +1,6 @@
 import createPasswordHash from './CreatePasswordHash';
-import generateToken from './generateToken';
 import matchPassword from './MatchPassword';
+import  generateToken from './GenerateToken'
+
 
 export { createPasswordHash, generateToken, matchPassword };

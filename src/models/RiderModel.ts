@@ -8,7 +8,7 @@ export const riderSchema = new mongoose.Schema<RideNameSpace.IModel>({
   driverId: { type: Schema.Types.ObjectId, ref: 'driver', required: true },
   pickup: locationSchema,
   dropoff: locationSchema,
-  status: { type: String, enum: RideStatusEnum, required: true },
+  status: { type: String, enum: RideStatusEnum, required: true, default: RideStatusEnum.REQUEST_SENT },
 });
 
 const RiderModel = mongoose.model('Rider', riderSchema);

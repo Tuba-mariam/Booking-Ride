@@ -20,3 +20,4 @@ const loginValidator = [
 ];
 
 export default loginValidator;
+

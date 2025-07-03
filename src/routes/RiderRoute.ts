@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import RiderValidation from '../validators/RiderValidation';
+import RiderValidation from '../validators/Rider/RiderValidation';
 import RiderController from '../Controllers/RiderController';
 import { authenticateJwt, requestValidationMiddleware } from '../middlewares';
 

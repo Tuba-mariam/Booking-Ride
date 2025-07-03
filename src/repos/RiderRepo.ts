@@ -12,7 +12,6 @@ class RiderRepo {
       });
       return await Rider.save();
     } catch (error) {
-      // eslint-disable-line @typescript-eslint/no-unused-vars
       const errorMessage = `Internal server error`;
       throw new Error(errorMessage);
     }

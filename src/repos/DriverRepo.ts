@@ -2,15 +2,15 @@ import { DriverNameSpace } from '../interfaces';
 import { DriverModel } from '../models';
 
 class DriverRepo {
-  public static async createDriver(body: DriverNameSpace.ICreate): Promise<DriverNameSpace.IModel> {
-    const isExist = await this.getDriverByUser(body.userId);
+  public static async createDriver(body: DriverNameSpace.ICreate, userId: string): Promise<DriverNameSpace.IModel> {
+    const isExist = await this.getDriverByUser(userId);
 
     if (isExist) {
       throw new Error('Driver already registered');
     }
 
     try {
-      return await DriverModel.create(body);
+      return await DriverModel.create({...body, user: userId});
     } catch (error) {
       throw new Error('Internal server error');
     }
@@ -28,3 +28,4 @@ class DriverRepo {
 }
 
 export default DriverRepo;
+
