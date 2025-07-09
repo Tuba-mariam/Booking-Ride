@@ -3,29 +3,11 @@ import { DriverModel } from '../models';
 
 class DriverRepo {
   public static async createDriver(body: DriverNameSpace.ICreate, userId: string): Promise<DriverNameSpace.IModel> {
-    const isExist = await this.getDriverByUser(userId);
-
-    if (isExist) {
-      throw new Error('Driver already registered');
-    }
-
-    try {
-      return await DriverModel.create({...body, user: userId});
-    } catch (error) {
-      throw new Error('Internal server error');
-    }
+    return await DriverModel.create({ ...body, user: userId });
   }
 
-  public static async getDriverByUser(userId: string): Promise<DriverNameSpace.IModel> {
-    try {
-      const driver = await DriverModel.findOne({ user: userId }).populate('user').lean().exec();
-      if (!driver) throw new Error('Driver not found');
-      return driver;
-    } catch (error) {
-      throw new Error('Internal server error');
-    }
+  public static async getDriverByUser(userId: string): Promise<DriverNameSpace.IModel | null> {
+    return await DriverModel.findOne({ user: userId }).populate('user').lean().exec();
   }
 }
-
 export default DriverRepo;
-

@@ -21,7 +21,6 @@ declare namespace DriverNameSpace {
     drivingLicenceNo: Number;
     vehicleInfo: IvehicleInfo;
   }
-
 }
 
 export default DriverNameSpace;

@@ -1,3 +1,3 @@
-   import RiderValidation from './RiderValidation'
-   
-export {RiderValidation}
+import RiderValidation from './RiderValidation';
+import validateRideStatusUpdate from './StatusUpdate';
+export { RiderValidation, validateRideStatusUpdate };

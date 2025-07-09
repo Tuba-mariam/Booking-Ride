@@ -3,22 +3,31 @@ import jwt from 'jsonwebtoken';
 import { matchPassword } from '../utils';
 import config from '../config/config';
 import GenericNameSpace from '../interfaces/Generic.interface';
-import { UserNameSpace } from '../interfaces';
+import { AuthNameSpace, UserNameSpace } from '../interfaces';
 import UserRepo from '../repos/UserRepo';
 
 class AuthController {
   public static async signup(req: Request, res: Response) {
-    const body = req.body;
+    const body: UserNameSpace.ICreate = req.body;
+
+    const isExist = await UserRepo.getUserByEmail(body.email);
+    if (isExist) {
+      res.status(403).json({
+        success: false,
+        message: 'Email is already registered',
+      });
+      return;
+    }
 
     try {
       const newUser = await UserRepo.createUser(body);
-
       res.json({
         success: true,
         data: newUser,
-        message: '',
+        message: 'User signup sucessfully',
       });
     } catch (error) {
+      console.log(error);
       const errorResponse: GenericNameSpace.IApiResponse = {
         success: false,
         message: 'Internal server error',
@@ -35,9 +44,9 @@ class AuthController {
       if (!user) {
         const errorResponse: GenericNameSpace.IApiResponse = {
           success: false,
-          message: 'email invalid',
+          message: 'Email is invalid',
         };
-        res.status(404).json(errorResponse);
+        res.status(400).json(errorResponse);
         return;
       }
 
@@ -45,20 +54,18 @@ class AuthController {
       if (!isPasswordMatched) {
         const errorResponse: GenericNameSpace.IApiResponse = {
           success: false,
-          message: 'password invalid',
+          message: 'Password is invalid',
         };
-        res.status(404).json(errorResponse);
+        res.status(400).json(errorResponse);
         return;
       }
 
-      const token = jwt.sign({ _id: user._id, email: user.email, role: user.role }, config.jwtSecret, {
+      const { password: pass, ...resUser } = user; // eslint-disable-line @typescript-eslint/no-unused-vars
+
+      const token = jwt.sign(resUser, config.jwtSecret, {
         expiresIn: '24h',
       });
-      const { password: pass, ...resUser } = user; // eslint-disable-line @typescript-eslint/no-unused-vars
-      const response: GenericNameSpace.IApiResponse<{
-        token: string;
-        user: Omit<UserNameSpace.IModel, 'password'>;
-      }> = {
+      const response: GenericNameSpace.IApiResponse<AuthNameSpace.ILoginResponse> = {
         success: true,
         message: 'Login successful!',
         data: {

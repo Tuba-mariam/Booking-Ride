@@ -27,8 +27,6 @@ const signupValidator = [
     .withMessage('Password must contain at least one uppercase letter and one special character'),
 
   body('location').notEmpty().withMessage('Location is required'),
-
-  body('role').isIn([UserroleEnum.DRIVER, UserroleEnum.USER]).withMessage('Valid role is required'),
 ];
 
 export default signupValidator;

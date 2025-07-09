@@ -1,5 +1,4 @@
 import mongoose, { Schema } from 'mongoose';
-import { UserroleEnum } from '../enums';
 import { DriverNameSpace } from '../interfaces';
 
 export const vehicleSchema = new mongoose.Schema<DriverNameSpace.IvehicleInfo>({

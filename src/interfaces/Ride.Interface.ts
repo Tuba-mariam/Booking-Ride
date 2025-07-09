@@ -15,8 +15,6 @@ declare namespace RideNameSpace {
   }
 
   interface ICreate {
-    userId: string;
-    driverId: string;
     pickup: GenericNameSpace.ILocation;
     dropoff: GenericNameSpace.ILocation;
   }

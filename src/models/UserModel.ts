@@ -10,7 +10,7 @@ export const userSchema = new mongoose.Schema<UserNameSpace.IModel>({
     latitude: { type: Number, required: true, min: -90, max: 90 },
     longitude: { type: Number, required: true, min: -180, max: 180 },
   },
-  role: { type: String, enum: UserroleEnum, required: true },
+
   createAt: { type: Date, default: Date.now },
 });
 
