@@ -63,7 +63,7 @@ class DriverController {
 
       res.json({
         success: true,
-        message: '  driver fetch  successful!',
+        message: 'driver fetch  successful!',
         data: driverDistances,
       });
     } catch (error) {
