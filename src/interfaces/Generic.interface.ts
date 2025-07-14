@@ -22,6 +22,11 @@ declare namespace GenericNameSpace {
     latitude: number;
     longitude: number;
   }
+
+  interface IDistanceResponse {
+    distance: {text: string, value: number}
+    duration: {text: string, value: number}
+  }
 }
 
 export default GenericNameSpace;

@@ -60,7 +60,7 @@ class AuthController {
         return;
       }
 
-      const { password: pass, ...resUser } = user; // eslint-disable-line @typescript-eslint/no-unused-vars
+      const { password: pass, ...resUser } = user; 
 
       const token = jwt.sign(resUser, config.jwtSecret, {
         expiresIn: '24h',

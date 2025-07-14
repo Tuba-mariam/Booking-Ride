@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { RiderRepo } from '../repos';
 import { AuthNameSpace, GenericNameSpace } from '../interfaces';
-import { body } from 'express-validator';
+// import { body } from 'express-validator';
 import { RideStatusEnum } from '../enums';
 
 class RiderController {

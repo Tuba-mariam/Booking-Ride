@@ -3,11 +3,25 @@ import config from './config/config';
 import bodyParser from 'body-parser';
 import { connectDb } from './config/connectDb';
 import { registerRoutes } from './routes';
+import http from 'http';
+import { Server } from 'socket.io';
+import { setupUserSocket } from './utils';
 
 const app = express();
-
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+const server = http.createServer(app);
+
+const io = new Server(server, {
+  cors: {
+    origin: '*',
+  },
+});
+
+
+// Soketio
+setupUserSocket(io);
 
 // Database connection
 connectDb();
@@ -16,6 +30,6 @@ connectDb();
 registerRoutes(app);
 
 // Setup server
-app.listen(config.port, () => {
+server.listen(config.port, () => {
   console.log(`Server running on port ${config.port}`);
 });

@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import { DriverController } from '../Controllers';
-import { authenticateJwt, requestValidationMiddleware } from '../middlewares';
-import registerDriverValidator from '../validators/Driver/RegisterDriver';
+import { DriverController } from '../../Controllers';
+import { authenticateJwt, requestValidationMiddleware } from '../../middlewares';
+import registerDriverValidator from '../../validators/Driver/RegisterDriver';
 
 const router = Router();
 
@@ -12,5 +12,6 @@ router.post(
   authenticateJwt,
   DriverController.registerDriver
 );
+
 
 export default router;

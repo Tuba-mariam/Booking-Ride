@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import { UserroleEnum } from '../enums';
 import UserNameSpace from './User.interface';
 
 declare namespace DriverNameSpace {
