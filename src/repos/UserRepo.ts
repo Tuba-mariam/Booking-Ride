@@ -5,26 +5,19 @@ import { createPasswordHash } from '../utils';
 
 class UserRepo {
   public static async createUser(body: UserNameSpace.ICreate): Promise<UserNameSpace.IModel> {
-    try {
-      const passwordHash = await createPasswordHash(body.password);
-      return await UserModel.create({ ...body, password: passwordHash });
-    } catch (error) {
-      const errorMessage = `Internal server error`;
-      throw new Error(errorMessage);
-    }
+    const passwordHash = await createPasswordHash(body.password);
+    return await UserModel.create({ ...body, password: passwordHash });
   }
 
   public static async getUserByEmail(email: string): Promise<UserNameSpace.IModel | null> {
     return await UserModel.findOne({ email }).lean().exec();
   }
+  public static async getUserByEmailWithPass(email: string): Promise<UserNameSpace.IModel | null> {
+    return await UserModel.findOne({ email }).select('password').lean().exec();
+  }
   public static async updateLocation(userId: string, location: GenericNameSpace.ILocation): Promise<string> {
-    try {
-      await UserModel.findOneAndUpdate({ _id: userId }, { location });
-      return 'Location updated';
-    } catch (error) {
-      const errorMessage = `Internal server error`;
-      throw new Error(errorMessage);
-    }
+    await UserModel.findByIdAndUpdate(userId, { location });
+    return 'Location updated';
   }
 }
 

@@ -19,7 +19,6 @@ const io = new Server(server, {
   },
 });
 
-
 // Soketio
 setupUserSocket(io);
 

@@ -4,7 +4,7 @@ import { DriverModel } from '../models';
 import config from '../config/config';
 
 class DriverRepo {
-  public static async createDriver(body: DriverNameSpace.ICreate, userId: string): Promise<DriverNameSpace.IModel> {
+  public static async createDriver(body: DriverNameSpace.ICreate, userId: string) {
     return await DriverModel.create({ ...body, user: userId });
   }
 
